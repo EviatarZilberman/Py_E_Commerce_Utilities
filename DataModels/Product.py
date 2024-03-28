@@ -1,8 +1,7 @@
 from DataModels.Base import Base
-from DataModels.Owned import Owned
 
 
-class Product (Owned):
+class Product (Base):
     m_owner_id = None
     m_price = 0
     m_name = None
@@ -12,8 +11,8 @@ class Product (Owned):
     m_search_keys = list()
     m_section = list()
 
-    def __init__(self, owner_id, price, name, section, quantity = 1, description = None, pictures = None):
-        super().__init__(owner_id)
+    def __init__(self, price, name, section, quantity = 1, description = None, pictures = None):
+        super().__init__()
         self.m_price = price
         self.m_name = name
         self.m_quantity = quantity

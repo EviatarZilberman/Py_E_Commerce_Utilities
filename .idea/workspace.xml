@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="44b44c94-b979-4f7a-b75a-ed552b096976" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Py_E_Commerce_Utilities.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/Address.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/Base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/Owned.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/PaymentDetails.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/PersonalDetails.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/Product.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/Sale.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/User.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataModels/__init__.py" afterDir="false" />
+    <list default="true" id="44b44c94-b979-4f7a-b75a-ed552b096976" name="Changes" comment="New Utilities project.">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataModels/Address.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/Address.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataModels/PaymentDetails.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/PaymentDetails.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataModels/PersonalDetails.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/PersonalDetails.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataModels/Product.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/Product.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +55,19 @@
       <option name="presentableId" value="Default" />
       <updated>1711625028976</updated>
     </task>
+    <task id="LOCAL‎-00001" summary="New Utilities project.">
+      <option name="closed" value="true" />
+      <created>1711625148782</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL‎-00001" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1711625148782</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="New Utilities project." />
+    <option name="LAST_COMMIT_MESSAGE" value="New Utilities project." />
   </component>
 </project>

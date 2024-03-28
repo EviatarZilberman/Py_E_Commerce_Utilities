@@ -1,9 +1,9 @@
-from DataModels.Owned import Owned
+from DataModels.Base import Base
 
 
-class Address (Owned):
-    def __init__(self, owner_id, city, street, number, floor, department, entrance, mail_box):
-        super().__init__(owner_id)
+class Address (Base):
+    def __init__(self, city, street, number, floor, department, entrance, mail_box):
+        super().__init__()
         self.m_city = city
         self.m_street = street
         self.m_number = number
