@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="44b44c94-b979-4f7a-b75a-ed552b096976" name="Changes" comment="New Utilities project.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Py_E_Commerce_Utilities.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Py_E_Commerce_Utilities.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataModels/Address.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/Address.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataModels/PaymentDetails.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/PaymentDetails.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataModels/PersonalDetails.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/PersonalDetails.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataModels/Product.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/Product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataModels/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataModels/User.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,11 +20,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2eJaF90TnbJUlzgbQY0i8CoOc0A" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -31,11 +36,12 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/User/Projects/Py_E_Commerce_Utilities/DataModels"
+    "last_opened_file_path": "C:/Users/User/Projects/Py_E_Commerce_Utilities"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Projects\Py_E_Commerce_Utilities\Enums" />
       <recent name="C:\Users\User\Projects\Py_E_Commerce_Utilities\DataModels" />
     </key>
   </component>
@@ -63,7 +69,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1711625148782</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL‎-00002" summary="New Utilities project.">
+      <option name="closed" value="true" />
+      <created>1711625569338</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL‎-00002" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1711625569338</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
