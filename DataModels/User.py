@@ -9,8 +9,8 @@ class User(Base.Base):
     m_last_name = None
     m_email = None
     m_password = None
-    m_products_for_sell = list()
-    m_cart : list = None
+    m_products_for_sell = list() # List of product id
+    m_cart : list = None # List of product id
     m_payment_details: PaymentDetails = None
     m_personal_details: PersonalDetails = None
     m_stay_logged = False
