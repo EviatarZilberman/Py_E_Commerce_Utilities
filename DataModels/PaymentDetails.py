@@ -11,8 +11,6 @@ class PaymentDetails(Base):
         self.m_expiry_date = expiry_date
         self.m_id = id
 
-
-    #TODO = FIX THIS FUNCTION!
     @staticmethod
     def details_validation(form_data):
         error_list = list()
@@ -30,27 +28,31 @@ class PaymentDetails(Base):
         if temp_number < 0:
             error_list.append("3 digits are incorrect")
 
-        correct_expiry_date = PaymentDetails.__validate_date(form_data.m_expiry_date)
+        correct_expiry_date = PaymentDetails.__validate_date(form_data["expiry_date"])
         if not correct_expiry_date:
             error_list.append("Expiry date is incorrect")
 
-        correct_id = PaymentDetails.__israeli_id_validation(form_data.m_id)
+        correct_id = PaymentDetails.__israeli_id_validation(form_data["id"])
         if not correct_id:
             error_list.append("Id is incorrect")
 
         return error_list
 
-
     @staticmethod
     def __israeli_id_validation(id):
         sum = 0
-        for digit in id:
-            temp_id = int(digit)
-            if digit % 2 == 0:
-                temp_id = temp_id * 2
+        for i in range(len(id)):
+            temp_id = int(id[i])
+            if i == 0:
                 sum += temp_id
             else:
-                sum += temp_id
+                if i % 2 != 0:
+                    temp_id = temp_id * 2
+                    if temp_id > 9:
+                        temp_id = temp_id % 10 + temp_id // 10
+                    sum += temp_id
+                else:
+                    sum += temp_id
 
         if sum % 10 == 0:
             return True
@@ -64,3 +66,9 @@ class PaymentDetails(Base):
             return True
         except ValueError:
             return False
+
+    @staticmethod
+    def from_dict(dictionary):
+        payment_details = PaymentDetails(dictionary["credit_card_number"], dictionary["three_digits_in_back"],
+                                         dictionary["expiry_date"], dictionary["_id"])
+        return payment_details

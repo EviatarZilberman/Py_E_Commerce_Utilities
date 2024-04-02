@@ -15,7 +15,8 @@ class User(Base.Base):
     m_personal_details: PersonalDetails = None
     m_stay_logged = False
 
-    def __init__(self, username, f_name, l_name, email, password, id = None, creation_date = None, sell_products = None, cart = None, personal_details = None, payment_details = None, stay_logged = False):
+    def __init__(self, username, f_name, l_name, email, password, id = None, creation_date = None,
+                 sell_products = None, cart = None, personal_details = None, payment_details = None, stay_logged = False):
         super().__init__()
         if id is not None:
             self.m_internal_id = id

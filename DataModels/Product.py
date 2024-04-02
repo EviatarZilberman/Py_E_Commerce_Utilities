@@ -1,4 +1,5 @@
 from DataModels.Base import Base
+from Enums.ProductSection import ProductSection
 
 
 class Product (Base):
@@ -11,14 +12,17 @@ class Product (Base):
     m_search_keys = list()
     m_section = list()
 
-    def __init__(self, price, name, section, quantity = 1, description = None, pictures = None):
+    def __init__(self, price, name, quantity = 1, section = None, description = None, pictures = None):
         super().__init__()
         self.m_price = price
         self.m_name = name
         self.m_quantity = quantity
         self.m_description = description
         self.m_pictures = pictures
-        self.m_section = section
+        if section is list():
+            self.m_section = section # Type of the product (toys, food...)
+        else:
+            self.m_section.append(ProductSection.Others)
         self.m_search_keys = Product.__initialize_search_keys(name)
 
     @staticmethod
