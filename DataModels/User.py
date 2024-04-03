@@ -82,13 +82,31 @@ class User(Base.Base):
     def to_dict(self):
         return {"_id": str(self.m_internal_id), "created_at": str(self.m_created_at), "username": self.m_username,
                 "first_name": self.m_first_name, "last_name": self.m_last_name,
-                "email": self.m_email, "password": self.m_password }
+                "email": self.m_email, "password": self.m_password, "m_products_for_sell": self.m_products_for_sell,
+                "m_cart": self.m_cart, "m_payment_details": self.m_payment_details,
+                "m_personal_details": self.m_personal_details}
         
     @staticmethod
     def from_dict(dictionary):
+        try:
+            cart = dictionary["cart"]
+        except:
+            cart = None
+
+        try:
+            payment_details = dictionary["payment_details"]
+        except:
+            payment_details = None
+        try:
+            personal_details = dictionary["personal_details"]
+        except:
+            personal_details = None
+
         user = User(dictionary["username"], dictionary["first_name"], dictionary["last_name"], dictionary["email"],
-                     dictionary["password"], dictionary["_id"], dictionary["created_at"])
+                     dictionary["password"], dictionary["_id"], dictionary["created_at"],
+                    cart, personal_details, payment_details)
         return user
+
 
 #  Folder/
 # | 

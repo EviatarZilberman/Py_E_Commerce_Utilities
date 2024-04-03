@@ -16,8 +16,8 @@ class PaymentDetails(Base):
         error_list = list()
         if not form_data:
             return ["No fields were filled!"]
-
-        if len(form_data["credit_card_number"]) > 19 or len(form_data["credit_card_number"]) < 8:
+        credit_card_number = form_data.get("credit_card_number")
+        if len(credit_card_number) > 19 or len(credit_card_number) < 8:
             error_list.append("Credit card number is incorrect")
 
         temp_number = int(form_data["credit_card_number"])
@@ -70,5 +70,11 @@ class PaymentDetails(Base):
     @staticmethod
     def from_dict(dictionary):
         payment_details = PaymentDetails(dictionary["credit_card_number"], dictionary["three_digits_in_back"],
-                                         dictionary["expiry_date"], dictionary["_id"])
+                                         dictionary["expiry_date"], dictionary["id"])
         return payment_details
+
+    def to_dict(self):
+        return {"_id": str(self.m_internal_id), "created_at": str(self.m_created_at),
+                "m_credit_card_number": self.m_credit_card_number,
+                "three_digits_in_back": self.m_three_digits_in_back, "expiry_date": self.m_expiry_date,
+                "id": self.m_id }
