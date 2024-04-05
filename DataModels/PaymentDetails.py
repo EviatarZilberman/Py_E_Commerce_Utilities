@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from DataModels.Base import Base
 
 
@@ -75,6 +74,6 @@ class PaymentDetails(Base):
 
     def to_dict(self):
         return {"_id": str(self.m_internal_id), "created_at": str(self.m_created_at),
-                "m_credit_card_number": self.m_credit_card_number,
-                "three_digits_in_back": self.m_three_digits_in_back, "expiry_date": self.m_expiry_date,
+                "credit_card_number": self.m_credit_card_number,
+                "three_digits_in_back": self.m_three_digits_in_back, "expiry_date": str(self.m_expiry_date),
                 "id": self.m_id }

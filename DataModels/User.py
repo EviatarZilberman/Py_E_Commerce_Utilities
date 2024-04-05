@@ -1,6 +1,5 @@
 from DataModels import Base
-from DataModels import PersonalDetails
-from DataModels import PaymentDetails
+from DataModels.PersonalDetails import PersonalDetails
 
 
 class User(Base.Base):
@@ -11,12 +10,10 @@ class User(Base.Base):
     m_password = None
     m_products_for_sell = list() # List of product id
     m_cart : list = None # List of product id
-    m_payment_details: PaymentDetails = None
     m_personal_details: PersonalDetails = None
-    m_stay_logged = False
 
     def __init__(self, username, f_name, l_name, email, password, id = None, creation_date = None,
-                 sell_products = None, cart = None, personal_details = None, payment_details = None, stay_logged = False):
+                 sell_products = None, cart = None, personal_details = None):
         super().__init__()
         if id is not None:
             self.m_internal_id = id
@@ -29,9 +26,7 @@ class User(Base.Base):
         self.m_password = password
         self.m_products_for_sell = sell_products
         self.m_cart = cart
-        self.m_payment_details = payment_details
-        self.m_personal_details = personal_details
-        self.m_stay_logged = stay_logged
+        self.m_personal_details: PersonalDetails = personal_details
 
     @staticmethod
     def __strong_password(password):
@@ -80,31 +75,39 @@ class User(Base.Base):
         return new_error_list
 
     def to_dict(self):
+        personal_details = self.m_personal_details
+        if personal_details:
+            personal_details_dict = personal_details.to_dict()
+        else:
+            personal_details_dict = None
         return {"_id": str(self.m_internal_id), "created_at": str(self.m_created_at), "username": self.m_username,
                 "first_name": self.m_first_name, "last_name": self.m_last_name,
-                "email": self.m_email, "password": self.m_password, "m_products_for_sell": self.m_products_for_sell,
-                "m_cart": self.m_cart, "m_payment_details": self.m_payment_details,
-                "m_personal_details": self.m_personal_details}
+                "email": self.m_email, "password": self.m_password, "products_for_sell": self.m_products_for_sell,
+                "cart": self.m_cart,
+                "personal_details": personal_details_dict }
         
     @staticmethod
     def from_dict(dictionary):
-        try:
+        if 'cart' in dictionary:
             cart = dictionary["cart"]
-        except:
+        else:
             cart = None
-
-        try:
-            payment_details = dictionary["payment_details"]
-        except:
-            payment_details = None
-        try:
-            personal_details = dictionary["personal_details"]
-        except:
+        if 'personal_details' in dictionary:
+            personal_details_dict = dictionary["personal_details"]
+            if personal_details_dict:
+                personal_details = PersonalDetails.from_dict(personal_details_dict)
+            else:
+                personal_details = None
+        else:
             personal_details = None
+        if 'products_for_sell' in dictionary:
+            sell_list = dictionary["products_for_sell"]
+        else:
+            sell_list = None
 
         user = User(dictionary["username"], dictionary["first_name"], dictionary["last_name"], dictionary["email"],
-                     dictionary["password"], dictionary["_id"], dictionary["created_at"],
-                    cart, personal_details, payment_details)
+                    dictionary["password"], dictionary["_id"], dictionary["created_at"],
+                    sell_list, cart, personal_details)
         return user
 
 
