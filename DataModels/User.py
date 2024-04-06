@@ -29,7 +29,7 @@ class User(Base.Base):
         self.m_personal_details: PersonalDetails = personal_details
 
     @staticmethod
-    def __strong_password(password):
+    def __strong_password(password) -> list:
         error_list = list()
         if password is None or password == "":
             error_list.append("Password is empty.")
@@ -55,18 +55,19 @@ class User(Base.Base):
             error_list.append("Not enough capital letters.")
         if lower < 1:
             error_list.append("Not enough lower letters.")
-        if number < 2:
+        if number < 1:
             error_list.append("Not enough numbers.")
-        if special < 2:
+        if special < 1:
             error_list.append("Not enough special characters.")
         return error_list
 
     @staticmethod
-    def valid_password(password, confirm_password):
+    def valid_password(password, confirm_password) -> list:
         error_list = list()
         if not password == confirm_password:
             error_list.append("Password and Confirm Password are not the same.")
 
+        new_error_list = list()
         new_error_list = User.__strong_password(password)
 
         if len(error_list) == 1:

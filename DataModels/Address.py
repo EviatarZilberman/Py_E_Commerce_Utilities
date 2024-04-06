@@ -2,8 +2,9 @@ from DataModels.Base import Base
 
 
 class Address (Base):
-    def __init__(self, city, street, number, floor, apartment, entrance = None, mail_box = None, id = None, created_at = None):
+    def __init__(self, country, city, street, number, floor, apartment, entrance = None, mail_box = None, id = None, created_at = None):
         super().__init__()
+        self.m_country = country
         self.m_city = city
         self.m_street = street
         self.m_number = number
@@ -21,7 +22,7 @@ class Address (Base):
                 "_id": str(self.m_internal_id), "created_at": str(self.m_created_at),
                 "city": self.m_city, "street": self.m_street, "number": self.m_number,
                 "floor": self.m_floor, "apartment": self.m_apartment,
-                "entrance": self.m_entrance, "mail_box": self.m_mail_box }
+                "entrance": self.m_entrance, "mail_box": self.m_mail_box, "country": self.m_country }
 
     @staticmethod
     def from_dict(dictionary):
@@ -42,7 +43,7 @@ class Address (Base):
         else:
             created_at = None
 
-        res = Address(dictionary["city"], dictionary["street"], dictionary["number"],
+        res = Address(dictionary["country"], dictionary["city"], dictionary["street"], dictionary["number"],
                       dictionary["floor"], dictionary["apartment"], entrance,
                       mail_box, id, created_at)
         return res
