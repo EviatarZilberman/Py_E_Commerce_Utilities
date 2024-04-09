@@ -10,7 +10,7 @@ class Sale(Base):
     m_end_time = datetime.MAXYEAR
     m_bidders = list()
 
-    def __init__(self, product_id, bidders, min_price = 0, type = None, end_time = None):
+    def __init__(self, product_id, min_price = 0, bidders = None, type = None, end_time = None):
         super().__init__()
         self.m_product_id = product_id
         self.m_type = type

@@ -127,8 +127,10 @@ class User(Base.Base):
 # │             └── ...
 # |          ├── static/
 # |             ├── __init__.py
+# |             ├── functions.js
 # |          ├── templates/
 # |             ├── __init__.py
+# |             ├── add_new_product.html
 # |             ├── ...
 # |         ├── venv/
 # |             ├── ...
