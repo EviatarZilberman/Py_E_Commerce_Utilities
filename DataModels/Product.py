@@ -53,7 +53,8 @@ class Product (Base):
             "description": self.m_description,
             "available_for_sale": self.m_available_for_sale,
             "pictures": self.m_pictures,
-            "search_keys": self.m_search_keys
+            "search_keys": self.m_search_keys,
+            "owner_id": self.m_owner_id
         }
 
     @staticmethod
