@@ -46,7 +46,7 @@ class Product (Base):
     def to_dict(self):
         return {
             "_id": self.m_internal_id,
-            "created_at": self.m_created_at,
+            "created_at": str(self.m_created_at),
             "price": self.m_price,
             "section": self.m_section,
             "title": self.m_title,

@@ -3,7 +3,7 @@ from DataModels.Base import Base
 
 
 class PaymentDetails(Base):
-    def __init__(self, credit_card_number, three_digits_in_back, expiry_date, id):
+    def __init__(self, credit_card_number = None, three_digits_in_back = None, expiry_date = None, id = None):
         super().__init__()
         self.m_credit_card_number = credit_card_number
         self.m_three_digits_in_back = three_digits_in_back
@@ -68,6 +68,8 @@ class PaymentDetails(Base):
 
     @staticmethod
     def from_dict(dictionary):
+        if dictionary is None:
+            return None
         payment_details = PaymentDetails(dictionary["credit_card_number"], dictionary["three_digits_in_back"],
                                          dictionary["expiry_date"], dictionary["id"])
         return payment_details
