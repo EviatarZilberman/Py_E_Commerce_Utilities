@@ -25,7 +25,7 @@ class Product (Base):
         self.m_available_for_sale = available_for_sale
         self.m_description = description
         self.m_pictures = pictures
-        if section is list():
+        if isinstance(section, list):
             self.m_section = section # Type of the product (toys, food...)
         else:
             self.m_section.append(ProductSection.Others)
@@ -84,9 +84,14 @@ class Product (Base):
         else:
             section = str(ProductSection.Others)
 
-        product = Product(dictionary["owner_id"], dictionary["price"],
+        p = Product(dictionary["owner_id"], dictionary["price"],
                           dictionary["title"], section,
                           dictionary["description"],
                           avail_for_sale,
                           pictures, _id, created_at)
-        return product
+        return p
+
+    def to_string(self):
+        return (f"id: {self.m_internal_id}, created: {self.m_created_at}, price: {self.m_price}, title: {self.m_title},"
+                f" des: {self.m_description}, section: {self.m_section}"
+                f"avail: {self.m_available_for_sale}, search: {self.m_search_keys}, owner: {self.m_owner_id}")
