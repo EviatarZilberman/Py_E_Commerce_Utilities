@@ -3,30 +3,30 @@ from DataModels.PersonalDetails import PersonalDetails
 
 
 class User(Base.Base):
-    m_username = None
-    m_first_name = None
-    m_last_name = None
-    m_email = None
-    m_password = None
-    m_products_for_sell = list() # List of product id
-    m_cart : list = None # List of product id
-    m_personal_details: PersonalDetails = None
+    username = None
+    first_name = None
+    last_name = None
+    email = None
+    password = None
+    products_for_sell = list() # List of product id
+    cart : list = None # List of product id
+    personal_details: PersonalDetails = None
 
-    def __init__(self, username, f_name, l_name, email, password, id = None, creation_date = None,
+    def __init__(self, username, f_name, l_name, email, password, item_id = None, creation_date = None,
                  sell_products = None, cart = None, personal_details = None):
         super().__init__()
-        if id is not None:
-            self.m_internal_id = id
+        if item_id is not None:
+            self.internal_id = item_id
         if creation_date is not None:
-            self.m_created_at = creation_date
-        self.m_username = username
-        self.m_first_name = f_name
-        self.m_last_name = l_name
-        self.m_email = email
-        self.m_password = password
-        self.m_products_for_sell = sell_products
-        self.m_cart = cart
-        self.m_personal_details: PersonalDetails = personal_details
+            self.created_at = creation_date
+        self.username = username
+        self.first_name = f_name
+        self.last_name = l_name
+        self.email = email
+        self.password = password
+        self.products_for_sell = sell_products
+        self.cart = cart
+        self.personal_details: PersonalDetails = personal_details
 
     @staticmethod
     def __strong_password(password) -> list:
@@ -76,15 +76,15 @@ class User(Base.Base):
         return new_error_list
 
     def to_dict(self):
-        personal_details = self.m_personal_details
+        personal_details = self.personal_details
         if personal_details:
             personal_details_dict = personal_details.to_dict()
         else:
             personal_details_dict = None
-        return {"_id": str(self.m_internal_id), "created_at": str(self.m_created_at), "username": self.m_username,
-                "first_name": self.m_first_name, "last_name": self.m_last_name,
-                "email": self.m_email, "password": self.m_password, "products_for_sell": self.m_products_for_sell,
-                "cart": self.m_cart,
+        return {"_id": str(self.internal_id), "created_at": str(self.created_at), "username": self.username,
+                "first_name": self.first_name, "last_name": self.last_name,
+                "email": self.email, "password": self.password, "products_for_sell": self.products_for_sell,
+                "cart": self.cart,
                 "personal_details": personal_details_dict }
         
     @staticmethod

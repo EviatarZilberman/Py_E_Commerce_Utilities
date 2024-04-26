@@ -2,27 +2,27 @@ from DataModels.Base import Base
 
 
 class Address (Base):
-    def __init__(self, country, city, street, number, floor, apartment, entrance = None, mail_box = None, id = None, created_at = None):
+    def __init__(self, p_country, p_city, p_street, p_number, p_floor, p_apartment, p_entrance = None, p_mail_box = None, p_id = None, p_created_at = None):
         super().__init__()
-        self.m_country = country
-        self.m_city = city
-        self.m_street = street
-        self.m_number = number
-        self.m_floor = floor
-        self.m_apartment = apartment
-        self.m_entrance = entrance
-        self.m_mail_box = mail_box
+        self.country = p_country
+        self.city = p_city
+        self.street = p_street
+        self.number = p_number
+        self.floor = p_floor
+        self.apartment = p_apartment
+        self.entrance = p_entrance
+        self.mail_box = p_mail_box
         if id:
-            self.m_internal_id = id
-        if created_at:
-            self.m_created_at = created_at
+            self.internal_id = id
+        if p_created_at:
+            self.created_at = p_created_at
 
     def to_dict(self):
         return {
-                "_id": str(self.m_internal_id), "created_at": str(self.m_created_at),
-                "city": self.m_city, "street": self.m_street, "number": self.m_number,
-                "floor": self.m_floor, "apartment": self.m_apartment,
-                "entrance": self.m_entrance, "mail_box": self.m_mail_box, "country": self.m_country }
+                "_id": str(self.internal_id), "created_at": str(self.created_at),
+                "city": self.city, "street": self.street, "number": self.number,
+                "floor": self.floor, "apartment": self.apartment,
+                "entrance": self.entrance, "mail_box": self.mail_box, "country": self.country }
 
     @staticmethod
     def from_dict(dictionary):
@@ -35,9 +35,9 @@ class Address (Base):
         else:
             mail_box = None
         if "_id" in dictionary:
-            id = dictionary["_id"]
+            item_id = dictionary["_id"]
         else:
-            id = None
+            item_id = None
         if "created_at" in dictionary:
             created_at = dictionary["created_at"]
         else:
@@ -45,5 +45,5 @@ class Address (Base):
 
         res = Address(dictionary["country"], dictionary["city"], dictionary["street"], dictionary["number"],
                       dictionary["floor"], dictionary["apartment"], entrance,
-                      mail_box, id, created_at)
+                      mail_box, item_id, created_at)
         return res

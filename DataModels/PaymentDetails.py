@@ -3,12 +3,12 @@ from DataModels.Base import Base
 
 
 class PaymentDetails(Base):
-    def __init__(self, credit_card_number = None, three_digits_in_back = None, expiry_date = None, id = None):
+    def __init__(self, credit_card_number = None, three_digits_in_back = None, expiry_date = None, item_id = None):
         super().__init__()
-        self.m_credit_card_number = credit_card_number
-        self.m_three_digits_in_back = three_digits_in_back
-        self.m_expiry_date = expiry_date
-        self.m_id = id
+        self.credit_card_number = credit_card_number
+        self.three_digits_in_back = three_digits_in_back
+        self.expiry_date = expiry_date
+        self.id = item_id
 
     @staticmethod
     def details_validation(form_data):
@@ -38,10 +38,10 @@ class PaymentDetails(Base):
         return error_list
 
     @staticmethod
-    def __israeli_id_validation(id):
+    def __israeli_id_validation(item_id):
         sum = 0
-        for i in range(len(id)):
-            temp_id = int(id[i])
+        for i in range(len(item_id)):
+            temp_id = int(item_id[i])
             if i == 0:
                 sum += temp_id
             else:
@@ -75,7 +75,7 @@ class PaymentDetails(Base):
         return payment_details
 
     def to_dict(self):
-        return {"_id": str(self.m_internal_id), "created_at": str(self.m_created_at),
-                "credit_card_number": self.m_credit_card_number,
-                "three_digits_in_back": self.m_three_digits_in_back, "expiry_date": str(self.m_expiry_date),
-                "id": self.m_id }
+        return {"_id": str(self.internal_id), "created_at": str(self.created_at),
+                "credit_card_number": self.credit_card_number,
+                "three_digits_in_back": self.three_digits_in_back, "expiry_date": str(self.expiry_date),
+                "id": self.id }

@@ -4,20 +4,20 @@ from Enums.SaleType import SaleType
 
 
 class Sale(Base):
-    m_type = SaleType.Regular
-    m_product_id = None
-    m_min_price = 0
-    m_end_time = datetime.MAXYEAR
-    m_bidders = list()
+    type = SaleType.Regular
+    product_id = None
+    min_price = 0
+    end_time = datetime.MAXYEAR
+    bidders = list()
 
-    def __init__(self, product_id, min_price = 0, bidders = None, type = None, end_time = None):
+    def __init__(self, product_id, min_price = 0, bidders = None, item_type = None, end_time = None):
         super().__init__()
-        self.m_product_id = product_id
-        self.m_type = type
-        self.m_end_time = end_time
-        self.m_bidders = bidders
-        if min_price <= 0:
-            self.m_min_price = 0
+        self.product_id = product_id
+        self.type = item_type
+        self.end_time = end_time
+        self.bidders = bidders
+        if min_price < 0:
+            self.min_price = 0
         else:
-            self.m_min_price = min_price
+            self.min_price = min_price
 

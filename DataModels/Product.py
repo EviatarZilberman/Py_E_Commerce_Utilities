@@ -1,38 +1,42 @@
 from DataModels.Base import Base
 from Enums.ProductSection import ProductSection
+from Enums.ProductStatus import ProductStatus
 
 
 class Product (Base):
-    m_owner_id = None
-    m_price = 0
-    m_title = None
-    m_description = None
-    m_pictures = list()
-    m_available_for_sale = 1
-    m_search_keys = list()
-    m_section = list()
+    owner_id = None
+    price = 0
+    title = None
+    description = None
+    pictures = list()
+    available_for_sale = 1
+    search_keys = list()
+    section = list()
 
-    def __init__(self, owner_id, price, title, section, description, available_for_sale = 1,
+    def __init__(self, owner_id, price, title, section, description, available_for_sale = 1, product_status = ProductStatus.CREATE,
                  pictures = None, internal_id = None, created_at = None):
         super().__init__()
         if internal_id:
-            self.m_internal_id = internal_id
+            self.internal_id = internal_id
         if created_at:
-            self.m_created_at = created_at
-        self.m_owner_id = owner_id
-        self.m_price = price
-        self.m_title = title
-        self.m_available_for_sale = available_for_sale
-        self.m_description = description
-        self.m_pictures = pictures
-        if isinstance(section, list):
-            self.m_section = section # Type of the product (toys, food...)
+            self.created_at = created_at
+        self.owner_id = owner_id
+        self.price = price
+        self.title = title
+        self.available_for_sale = available_for_sale
+        self.description = description
+        self.pictures = pictures
+        if product_status == ProductStatus.CREATE:
+            if isinstance(section, list):
+                self.section = section # Type of the product (toys, food...)
+            else:
+                self.section.append(ProductSection.Others)
         else:
-            self.m_section.append(ProductSection.Others)
-        self.m_search_keys = Product.__initialize_search_keys(title)
+            self.section = section
+        self.search_keys = Product.initialize_search_keys(title)
 
     @staticmethod
-    def __initialize_search_keys(name : str) -> list:
+    def initialize_search_keys(name : str) -> list:
         pop_words = ["to", "from", "at", "in", "too", "not"]
         keys = name.split()
 
@@ -45,16 +49,16 @@ class Product (Base):
 
     def to_dict(self):
         return {
-            "_id": self.m_internal_id,
-            "created_at": str(self.m_created_at),
-            "price": self.m_price,
-            "section": self.m_section,
-            "title": self.m_title,
-            "description": self.m_description,
-            "available_for_sale": self.m_available_for_sale,
-            "pictures": self.m_pictures,
-            "search_keys": self.m_search_keys,
-            "owner_id": self.m_owner_id
+            "_id": self.internal_id,
+            "created_at": str(self.created_at),
+            "price": self.price,
+            "section": self.section,
+            "title": self.title,
+            "description": self.description,
+            "available_for_sale": self.available_for_sale,
+            "pictures": self.pictures,
+            "search_keys": self.search_keys,
+            "owner_id": self.owner_id
         }
 
     @staticmethod
@@ -85,13 +89,13 @@ class Product (Base):
             section = str(ProductSection.Others)
 
         p = Product(dictionary["owner_id"], dictionary["price"],
-                          dictionary["title"], section,
-                          dictionary["description"],
-                          avail_for_sale,
-                          pictures, _id, created_at)
+                    dictionary["title"], section,
+                    dictionary["description"],
+                    avail_for_sale,
+                    pictures, _id, created_at)
         return p
 
     def to_string(self):
-        return (f"id: {self.m_internal_id}, created: {self.m_created_at}, price: {self.m_price}, title: {self.m_title},"
-                f" des: {self.m_description}, section: {self.m_section}"
-                f"avail: {self.m_available_for_sale}, search: {self.m_search_keys}, owner: {self.m_owner_id}")
+        return (f"id: {self.internal_id}, created: {self.created_at}, price: {self.price}, title: {self.title},"
+                f" des: {self.description}, section: {self.section}"
+                f"avail: {self.available_for_sale}, search: {self.search_keys}, owner: {self.owner_id}")
