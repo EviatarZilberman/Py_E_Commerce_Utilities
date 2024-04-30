@@ -9,11 +9,11 @@ class User(Base.Base):
     email = None
     password = None
     products_for_sell = list() # List of product id
-    cart : list = None # List of product id
+    cart : list = None # List of CartProduct
     personal_details: PersonalDetails = None
 
     def __init__(self, username, f_name, l_name, email, password, item_id = None, creation_date = None,
-                 sell_products = None, cart = None, personal_details = None):
+                 sell_products: list = None, cart: list = None, personal_details = None):
         super().__init__()
         if item_id is not None:
             self.internal_id = item_id
