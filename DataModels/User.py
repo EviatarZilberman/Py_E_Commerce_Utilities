@@ -9,7 +9,7 @@ class User(Base.Base):
     email = None
     password = None
     products_for_sell = list() # List of product id
-    cart : list = None # List of CartProduct
+    cart: list = None # List of CartProduct
     personal_details: PersonalDetails = None
 
     def __init__(self, username, f_name, l_name, email, password, item_id = None, creation_date = None,
@@ -25,17 +25,21 @@ class User(Base.Base):
         self.email = email
         self.password = password
         self.products_for_sell = sell_products
-        self.cart = cart
+        if isinstance(cart, list):
+            self.cart = cart
+        else:
+            self.cart = list()
+            self.cart.append(cart)
         self.personal_details: PersonalDetails = personal_details
 
     @staticmethod
     def __strong_password(password) -> list:
         error_list = list()
-        if password is None or password == "":
-            error_list.append("Password is empty.")
+        if password is None or password == '':
+            error_list.append('Password is empty.')
 
         if len(password) < 8 or len(password) > 25:
-            error_list.append("Password is invalid (longer than 8 and shorter than 26).")
+            error_list.append('Password is invalid (longer than 8 and shorter than 26).')
 
         capital = 0
         lower = 0
@@ -52,20 +56,20 @@ class User(Base.Base):
                 special += 1
 
         if capital < 1:
-            error_list.append("Not enough capital letters.")
+            error_list.append('Not enough capital letters.')
         if lower < 1:
-            error_list.append("Not enough lower letters.")
+            error_list.append('Not enough lower letters.')
         if number < 1:
-            error_list.append("Not enough numbers.")
+            error_list.append('Not enough numbers.')
         if special < 1:
-            error_list.append("Not enough special characters.")
+            error_list.append('Not enough special characters.')
         return error_list
 
     @staticmethod
     def valid_password(password, confirm_password) -> list:
         error_list = list()
         if not password == confirm_password:
-            error_list.append("Password and Confirm Password are not the same.")
+            error_list.append('Password and Confirm Password are not the same.')
 
         new_error_list = list()
         new_error_list = User.__strong_password(password)
@@ -76,25 +80,36 @@ class User(Base.Base):
         return new_error_list
 
     def to_dict(self):
-        personal_details = self.personal_details
+        personal_details = None
+        try:
+            personal_details = self.personal_details
+        except Exception as e:
+            print(str(e))
         if personal_details:
             personal_details_dict = personal_details.to_dict()
         else:
             personal_details_dict = None
-        return {"_id": str(self.internal_id), "created_at": str(self.created_at), "username": self.username,
-                "first_name": self.first_name, "last_name": self.last_name,
-                "email": self.email, "password": self.password, "products_for_sell": self.products_for_sell,
-                "cart": self.cart,
-                "personal_details": personal_details_dict }
+        if self.cart:
+            cart_dict_list = list()
+            for cart_product in self.cart:
+                cart_dict_list.append(cart_product.to_dict())
+            self.cart = cart_dict_list
+        else:
+            self.cart = list()
+        return {'_id': str(self.internal_id), 'created_at': str(self.created_at), 'username': self.username,
+                'first_name': self.first_name, 'last_name': self.last_name,
+                'email': self.email, 'password': self.password, 'products_for_sell': self.products_for_sell,
+                'cart': cart_dict_list,
+                'personal_details': personal_details_dict }
         
     @staticmethod
     def from_dict(dictionary):
         if 'cart' in dictionary:
-            cart = dictionary["cart"]
+            cart = dictionary['cart']
         else:
             cart = None
         if 'personal_details' in dictionary:
-            personal_details_dict = dictionary["personal_details"]
+            personal_details_dict = dictionary['personal_details']
             if personal_details_dict:
                 personal_details = PersonalDetails.from_dict(personal_details_dict)
             else:
@@ -102,14 +117,19 @@ class User(Base.Base):
         else:
             personal_details = None
         if 'products_for_sell' in dictionary:
-            sell_list = dictionary["products_for_sell"]
+            sell_list = dictionary['products_for_sell']
         else:
             sell_list = None
 
-        user = User(dictionary["username"], dictionary["first_name"], dictionary["last_name"], dictionary["email"],
-                    dictionary["password"], dictionary["_id"], dictionary["created_at"],
+        user = User(dictionary['username'], dictionary['first_name'], dictionary['last_name'], dictionary['email'],
+                    dictionary['password'], dictionary['_id'], dictionary['created_at'],
                     sell_list, cart, personal_details)
         return user
+
+    def clear_list(self):
+        for item in self.cart:
+            if not item:
+                self.cart.remove(item)
 
 
 #  Folder/

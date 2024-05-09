@@ -4,16 +4,8 @@ from Enums.ProductStatus import ProductStatus
 
 
 class Product (Base):
-    owner_id = None
-    price = 0
-    title = None
-    description = None
-    pictures = list()
-    available_for_sale = 1
-    search_keys = list()
-    section = list()
-
-    def __init__(self, owner_id, price, title, section, description, available_for_sale = 1, product_status = ProductStatus.CREATE,
+    def __init__(self, owner_id, price, title, section, description, available_for_sale = 1,
+                 product_status = ProductStatus.DISPLAY,
                  pictures = None, internal_id = None, created_at = None):
         super().__init__()
         if internal_id:
@@ -25,14 +17,23 @@ class Product (Base):
         self.title = title
         self.available_for_sale = available_for_sale
         self.description = description
-        self.pictures = pictures
-        if product_status == ProductStatus.CREATE:
+        if not 'pictures':
+            self.pictures = None
+        else:
+            self.pictures = pictures
+        if not product_status:
+            self.product_status = ProductStatus.HIDE
+        else:
+            self.product_status = ProductStatus.DISPLAY
+        if not section:
+            self.section = list()
+            self.section.append(ProductSection.Others)
+        else:
             if isinstance(section, list):
                 self.section = section # Type of the product (toys, food...)
             else:
-                self.section.append(ProductSection.Others)
-        else:
-            self.section = section
+                self.section = list()
+                self.section.append(section)
         self.search_keys = Product.initialize_search_keys(title)
 
     @staticmethod
@@ -87,15 +88,14 @@ class Product (Base):
             section = dictionary["section"]
         else:
             section = str(ProductSection.Others)
+        if 'product_status' in dictionary:
+            product_status = dictionary['product_status']
+        else:
+            product_status = ProductStatus.DISPLAY
 
         p = Product(dictionary["owner_id"], dictionary["price"],
                     dictionary["title"], section,
                     dictionary["description"],
-                    avail_for_sale,
+                    avail_for_sale, product_status,
                     pictures, _id, created_at)
         return p
-
-    def to_string(self):
-        return (f"id: {self.internal_id}, created: {self.created_at}, price: {self.price}, title: {self.title},"
-                f" des: {self.description}, section: {self.section}"
-                f"avail: {self.available_for_sale}, search: {self.search_keys}, owner: {self.owner_id}")

@@ -2,5 +2,5 @@ from enum import Enum
 
 
 class ProductStatus(Enum):
-    CREATE = 1
-    UPDATE = 2
+    DISPLAY = 1
+    HIDE = 2

@@ -12,8 +12,8 @@ class Address (Base):
         self.apartment = p_apartment
         self.entrance = p_entrance
         self.mail_box = p_mail_box
-        if id:
-            self.internal_id = id
+        if p_id:
+            self.internal_id = p_id
         if p_created_at:
             self.created_at = p_created_at
 
