@@ -5,4 +5,5 @@ class CookiesClaims(Enum):
     USERNAME = 1
     EMAIL = 2
     IS_PERSIST = 3
+    USER_ID = 4
     

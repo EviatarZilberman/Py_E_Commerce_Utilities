@@ -1,18 +1,16 @@
-from DataModels.Base import Base
+from DataModels.Product import Product
 
 
-class CartProduct (Base):
-    def __init__(self, product_id, quantity):
-        super().__init__()
-        self.product_id = product_id
+class CartProduct (Product):
+    def __init__(self, product: Product, quantity):
+        super().__init__(product_origin = product)
+        self.product = product
         self.quantity = quantity
 
     def to_dict(self):
         return {
-            '_id': self.internal_id,
-            'created_at': str(self.created_at),
             'quantity': self.quantity,
-            'product_id': self.product_id
+            'product_id': self.product.to_dict()
         }
 
     @staticmethod

@@ -1,41 +1,38 @@
+from datetime import datetime
+
 from DataModels.Base import Base
 from Enums.ProductSection import ProductSection
 from Enums.ProductStatus import ProductStatus
 
 
 class Product (Base):
-    def __init__(self, owner_id, price, title, section, description, available_for_sale = 1,
-                 product_status = ProductStatus.DISPLAY,
-                 pictures = None, internal_id = None, created_at = None):
+    def __init__(self, owner_id = None, price = None, title = None, section = None, description = None,
+                 available_for_sale = None, product_status = None,
+                 pictures = None, internal_id = None, created_at = None, product_origin: 'Product' = None):
         super().__init__()
-        if internal_id:
+        if product_origin:
+            self.title = product_origin.title
+            self.owner_id = product_origin.owner_id
+            self.price = product_origin.price
+            self.available_for_sale = product_origin.available_for_sale
+            self.description = product_origin.description
+            self.internal_id = product_origin.internal_id
+            self.created_at = product_origin.created_at
+            self.pictures = product_origin.pictures
+            self.product_status = product_origin.product_status
+            self.search_keys = product_origin.search_keys
+        else:
+            self.owner_id = owner_id
+            self.price = price
+            self.title = title
+            self.available_for_sale = available_for_sale
+            self.description = description
+            self.pictures = pictures if pictures is not None else None
+            self.product_status = product_status if product_status else ProductStatus.DISPLAY
+            self.section = section if isinstance(section, list) else [section] if section else [ProductSection.Others]
             self.internal_id = internal_id
-        if created_at:
-            self.created_at = created_at
-        self.owner_id = owner_id
-        self.price = price
-        self.title = title
-        self.available_for_sale = available_for_sale
-        self.description = description
-        if not 'pictures':
-            self.pictures = None
-        else:
-            self.pictures = pictures
-        if not product_status:
-            self.product_status = ProductStatus.HIDE
-        else:
-            self.product_status = ProductStatus.DISPLAY
-        if not section:
-            self.section = list()
-            self.section.append(ProductSection.Others)
-        else:
-            if isinstance(section, list):
-                self.section = section # Type of the product (toys, food...)
-            else:
-                self.section = list()
-                self.section.append(section)
-        self.search_keys = Product.initialize_search_keys(title)
-
+            self.created_at = created_at or datetime.now()  # Provide default value if created_at is not provided
+            self.search_keys = Product.initialize_search_keys(title)
     @staticmethod
     def initialize_search_keys(name : str) -> list:
         pop_words = ["to", "from", "at", "in", "too", "not"]

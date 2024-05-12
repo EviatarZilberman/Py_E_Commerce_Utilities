@@ -1,4 +1,5 @@
 from DataModels import Base
+from DataModels.CartProduct import CartProduct
 from DataModels.PersonalDetails import PersonalDetails
 
 
@@ -9,7 +10,7 @@ class User(Base.Base):
     email = None
     password = None
     products_for_sell = list() # List of product id
-    cart: list = None # List of CartProduct
+    cart: list[CartProduct] = None # List of CartProduct
     personal_details: PersonalDetails = None
 
     def __init__(self, username, f_name, l_name, email, password, item_id = None, creation_date = None,
@@ -28,8 +29,7 @@ class User(Base.Base):
         if isinstance(cart, list):
             self.cart = cart
         else:
-            self.cart = list()
-            self.cart.append(cart)
+            self.cart = []
         self.personal_details: PersonalDetails = personal_details
 
     @staticmethod
@@ -79,29 +79,50 @@ class User(Base.Base):
 
         return new_error_list
 
+    # def to_dict(self):
+    #     personal_details = None
+    #     try:
+    #         personal_details = self.personal_details
+    #     except Exception as e:
+    #         print(str(e))
+    #     if personal_details:
+    #         personal_details_dict = personal_details.to_dict()
+    #     else:
+    #         personal_details_dict = None
+    #     if not self.cart:
+    #         self.cart = list()
+    #     cart_dict_list = list()
+    #     if len(self.cart) >= 1:
+    #         for cart_product in self.cart:
+    #             cart_dict_list.append(cart_product.to_dict())
+    #     else:
+    #         self.cart = list()
+    #     return {'_id': str(self.internal_id), 'created_at': str(self.created_at), 'username': self.username,
+    #             'first_name': self.first_name, 'last_name': self.last_name,
+    #             'email': self.email, 'password': self.password, 'products_for_sell': self.products_for_sell,
+    #             'cart': cart_dict_list,
+    #             'personal_details': personal_details_dict }
+    #
+
     def to_dict(self):
-        personal_details = None
-        try:
-            personal_details = self.personal_details
-        except Exception as e:
-            print(str(e))
-        if personal_details:
-            personal_details_dict = personal_details.to_dict()
-        else:
-            personal_details_dict = None
-        if self.cart:
-            cart_dict_list = list()
-            for cart_product in self.cart:
-                cart_dict_list.append(cart_product.to_dict())
-            self.cart = cart_dict_list
-        else:
-            self.cart = list()
-        return {'_id': str(self.internal_id), 'created_at': str(self.created_at), 'username': self.username,
-                'first_name': self.first_name, 'last_name': self.last_name,
-                'email': self.email, 'password': self.password, 'products_for_sell': self.products_for_sell,
-                'cart': cart_dict_list,
-                'personal_details': personal_details_dict }
-        
+        personal_details_dict = self.personal_details.to_dict() if self.personal_details else None
+        cart_dict_list = []
+        if isinstance(self.cart, list):
+            cart_dict_list = [cart_product.to_dict() for cart_product in self.cart if
+                              isinstance(cart_product, CartProduct)]
+        return {
+            '_id': str(self.internal_id),
+            'created_at': str(self.created_at),
+            'username': self.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'password': self.password,
+            'products_for_sell': self.products_for_sell,
+            'cart': cart_dict_list,
+            'personal_details': personal_details_dict
+        }
+
     @staticmethod
     def from_dict(dictionary):
         if 'cart' in dictionary:
