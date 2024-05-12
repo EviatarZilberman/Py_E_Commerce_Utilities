@@ -11,6 +11,7 @@ class Product (Base):
                  pictures = None, internal_id = None, created_at = None, product_origin: 'Product' = None):
         super().__init__()
         if product_origin:
+            self.section = section if isinstance(section, list) else [section] if section else [ProductSection.Others]
             self.title = product_origin.title
             self.owner_id = product_origin.owner_id
             self.price = product_origin.price
@@ -33,6 +34,7 @@ class Product (Base):
             self.internal_id = internal_id
             self.created_at = created_at or datetime.now()  # Provide default value if created_at is not provided
             self.search_keys = Product.initialize_search_keys(title)
+
     @staticmethod
     def initialize_search_keys(name : str) -> list:
         pop_words = ["to", "from", "at", "in", "too", "not"]
