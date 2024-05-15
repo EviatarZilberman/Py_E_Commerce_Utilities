@@ -33,7 +33,7 @@ class CartDataProduct (Base):
             product_id = dictionary['product_id']
         else:
             product_id = None
-        p = CartProduct(product_id, quantity)
+        p = CartDataProduct(product_id, quantity)
         p.created_at = created_at
         p.internal_id = _id
         return p

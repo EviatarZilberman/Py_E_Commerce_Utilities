@@ -16,3 +16,6 @@ class ProductSection(Enum):
     Girls_Cloth = 12
     Unisex_Kids_Cloth = 13
     Unisex_Cloth = 14
+
+    def __str__(self):
+        return str(self.value)

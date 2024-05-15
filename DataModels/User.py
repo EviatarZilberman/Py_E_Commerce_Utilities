@@ -102,9 +102,13 @@ class User(Base.Base):
     @staticmethod
     def from_dict(dictionary):
         if 'cart' in dictionary:
-            cart = dictionary['cart']
+            cart_dict = dictionary['cart']
+            cart_list = []
+            for item in cart_dict:
+                cart_product_data = CartDataProduct.from_dict(item)
+                cart_list.append(cart_product_data)
         else:
-            cart = None
+            cart_list = None
         if 'personal_details' in dictionary:
             personal_details_dict = dictionary['personal_details']
             if personal_details_dict:
@@ -120,7 +124,7 @@ class User(Base.Base):
 
         user = User(dictionary['username'], dictionary['first_name'], dictionary['last_name'], dictionary['email'],
                     dictionary['password'], dictionary['_id'], dictionary['created_at'],
-                    sell_list, cart, personal_details)
+                    sell_list, cart_list, personal_details)
         return user
 
     def clear_list(self):
